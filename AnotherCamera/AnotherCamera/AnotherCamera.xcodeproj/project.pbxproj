@@ -14,8 +14,6 @@
 		099FCEE220E7E3D600121645 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 099FCEE020E7E3D600121645 /* LaunchScreen.storyboard */; };
 		099FCEED20E7E3D600121645 /* AnotherCameraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099FCEEC20E7E3D600121645 /* AnotherCameraTests.swift */; };
 		099FCEF820E7E3D600121645 /* AnotherCameraUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099FCEF720E7E3D600121645 /* AnotherCameraUITests.swift */; };
-		099FCF0620E7EAD500121645 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 099FCF0520E7EAD500121645 /* Camera.storyboard */; };
-		099FCF0820E7EB0700121645 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099FCF0720E7EB0700121645 /* CameraController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,8 +47,6 @@
 		099FCEF320E7E3D600121645 /* AnotherCameraUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnotherCameraUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		099FCEF720E7E3D600121645 /* AnotherCameraUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnotherCameraUITests.swift; sourceTree = "<group>"; };
 		099FCEF920E7E3D600121645 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		099FCF0520E7EAD500121645 /* Camera.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
-		099FCF0720E7EB0700121645 /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,8 +104,6 @@
 				099FCEDE20E7E3D600121645 /* Assets.xcassets */,
 				099FCEE020E7E3D600121645 /* LaunchScreen.storyboard */,
 				099FCEE320E7E3D600121645 /* Info.plist */,
-				099FCF0520E7EAD500121645 /* Camera.storyboard */,
-				099FCF0720E7EB0700121645 /* CameraController.swift */,
 			);
 			path = AnotherCamera;
 			sourceTree = "<group>";
@@ -237,7 +231,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				099FCEE220E7E3D600121645 /* LaunchScreen.storyboard in Resources */,
-				099FCF0620E7EAD500121645 /* Camera.storyboard in Resources */,
 				099FCEDF20E7E3D600121645 /* Assets.xcassets in Resources */,
 				099FCEDD20E7E3D500121645 /* Main.storyboard in Resources */,
 			);
@@ -264,7 +257,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				099FCF0820E7EB0700121645 /* CameraController.swift in Sources */,
 				099FCEDA20E7E3D500121645 /* ViewController.swift in Sources */,
 				099FCED820E7E3D500121645 /* AppDelegate.swift in Sources */,
 			);
