@@ -12,7 +12,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var table: UITableView!
     @IBOutlet var textField: UITextField!
-    var messages : [String] = ["plz"]
+    var messages : [String] = ["hehe"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +28,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func buttonOnClick(_ sender: UIButton) {
         insertNewMessage()
+        textField.text = ""
     }
     
     func insertNewMessage() {
@@ -51,10 +52,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messages[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell") as! MessageCell
-        cell.messageContents.text = message
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell")
+        //let cell = tableView.visibleCells[tableView.visibleCells.count - 1]
+        cell!.textLabel!.text = message
         
-        return cell
+        return cell!
         
     }
     
