@@ -14,13 +14,23 @@ class ViewController: UIViewController, UITextFieldDelegate {
 	@IBOutlet var table: UITableView!
 	@IBOutlet var textField: UITextField!
 	
-	var messages : [String] = ["hehe"]
+	var messages : [String] = []
 	var clientInsert : Bool = true	//true - when table loads, it needs to know how to insert all the data in messages array and value cannot be nil
-	
 	let cellIdentifier : String = "MessageCell"
+	
+	//Socket object
+	let socket = WebSocket(url: URL(string: "wss://shardbytes.herokuapp.com/echo")!)
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		//Set socket stuff and connect
+		socket.onText = { (text: String) in
+			self.insertMessage(lockOn: self, server: true, message: text)
+		}
+		socket.connect()
+		
+		//Register something with table?
 		table.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
 		
 		//Delegate and data source
@@ -41,21 +51,26 @@ class ViewController: UIViewController, UITextFieldDelegate {
 	}
 	
 	@IBAction func buttonOnClick(_ sender: UIButton) {
-		insertNewMessage(lockOn: self, fromServer: false)
+		insertMessage(lockOn: self, server: false, message: textField.text!)
+		if(socket.isConnected){
+			socket.write(string: textField.text!)
+		}else{
+			print("not connected to websocket server!")
+		}
 		textField.text = ""
 	}
 	
 	//Synchronized function
-	func insertNewMessage(lockOn: Any, fromServer: Bool) {
+	func insertMessage(lockOn: Any, server: Bool, message: String) {
 		objc_sync_enter(lockOn)
 		defer {
 			objc_sync_exit(lockOn)
 		}
 		
-		print(textField.text!)
-		messages.append(textField.text!)
+		print(message)
+		messages.append(message)
 		
-		clientInsert = fromServer
+		clientInsert = !server
 		
 		table.beginUpdates()
 		let indexPath = IndexPath(row: messages.count - 1, section: 0)
@@ -63,7 +78,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 		table.endUpdates()
 		table.scrollToRow(at: indexPath, at: .bottom, animated: true)
 		
-		clientInsert = false
+		clientInsert = true
 		
 	}
 	
@@ -87,11 +102,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 		cell!.textLabel!.text = message
 		
 		if(clientInsert){
-			cell!.backgroundColor = UIColor.blue
+			cell!.backgroundColor = UIColor.blue	//Client is blue colour
 			cell!.textLabel!.textColor = UIColor.white
+			cell!.textLabel!.textAlignment = NSTextAlignment.right
 		}else{
-			cell!.backgroundColor = UIColor.green
-			cell!.backgroundColor = UIColor.white
+			cell!.backgroundColor = UIColor.green	//Server reply is green colour
+			cell!.textLabel!.textColor = UIColor.white
+			cell!.textLabel!.textAlignment = NSTextAlignment.left
 		}
 		
 		return cell!
