@@ -80,6 +80,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="saltTextField" destination="KpR-iD-GfR" id="xwx-xv-z68"/>
                         <outlet property="statusLabel" destination="yjp-45-SDn" id="nmp-Jv-3pQ"/>
                     </connections>
                 </viewController>

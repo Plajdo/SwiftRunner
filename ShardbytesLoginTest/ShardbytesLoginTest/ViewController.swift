@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
 	
 	@IBOutlet weak var statusLabel: UILabel!
+	@IBOutlet weak var saltTextField: UITextField!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -23,11 +24,13 @@ class ViewController: UIViewController {
 	}
 	
 	@IBAction func onVerifyClick(_ sender: UIButton) {
-		getSalt()
+		getSalt(afterDataRecieved: {(data) -> () in
+			self.saltTextField.text = data
+		})
 		
 	}
 	
-	func getSalt(){
+	func getSalt(afterDataRecieved: @escaping (_ data: String) -> ()){
 		let saltAddress : String = "https://shardbytes.com/user/sebu/salt"
 		let saltURL = URL(string: saltAddress)
 		let request = URLRequest(url: saltURL!)
@@ -44,7 +47,7 @@ class ViewController: UIViewController {
 				return
 			}
 			
-			
+			afterDataRecieved(responseData.toString())
 			
 		}
 		task.resume()
