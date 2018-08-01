@@ -24,14 +24,12 @@ class ViewController: UIViewController {
 	}
 	
 	@IBAction func onVerifyClick(_ sender: UIButton) {
-		getSalt(afterDataRecieved: {(data) -> () in
-			self.saltTextField.text = data
-		})
+		getSalt()
 		
 	}
 	
-	func getSalt(afterDataRecieved: @escaping (_ data: String) -> ()){
-		let saltAddress : String = "https://shardbytes.com/user/sebu/salt"
+	func getSalt(){
+		let saltAddress : String = "https://shardbytes.com/fruit"
 		let saltURL = URL(string: saltAddress)
 		let request = URLRequest(url: saltURL!)
 		let config = URLSessionConfiguration.default
@@ -47,7 +45,9 @@ class ViewController: UIViewController {
 				return
 			}
 			
-			afterDataRecieved(responseData.toString())
+			DispatchQueue.main.async {
+				self.saltTextField.text = responseData.toString()
+			}
 			
 		}
 		task.resume()
