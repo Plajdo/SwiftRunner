@@ -10,10 +10,10 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var table: UITableView!
+    @IBOutlet var table: UITableView!
     
-    let cellIdentifier : String = "noteCell"
-    var notes : [String] = ["hey", "oh", "ayyy"]
+    let cellIdentifier : String = "NoteCell"
+    var notes : [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,6 @@ class ViewController: UIViewController {
             objc_sync_exit(lockOn)
         }
         
-        print(note)
         notes.append(note)
         
         table.beginUpdates()
@@ -43,6 +42,10 @@ class ViewController: UIViewController {
         table.insertRows(at: [indexPath], with: .automatic)
         table.endUpdates()
         table.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        
+    }
+    @IBAction func buttonAdd(_ sender: UIBarButtonItem) {
+        insertNote(lockOn: self, note: "henlo")
         
     }
     
@@ -57,11 +60,11 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource{
     
     //getCell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let title : String = notes[indexPath.row]
-        let cell : NoteTableCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! NoteTableCell
+        let title = notes[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! NoteTableCell
         
         cell.title?.text = title
-        cell.content?.text = "content"
+        cell.content?.text = "this is sum quality content"
         
         return cell
         
@@ -86,7 +89,7 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource{
     
     //cellSelected
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print((tableView.cellForRow(at: indexPath) as! NoteTableCell).title.text!)
+        print((tableView.cellForRow(at: indexPath) as! NoteTableCell).title?.text!)
     }
     
 }

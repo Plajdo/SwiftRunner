@@ -44,7 +44,7 @@
                                 <color key="backgroundColor" red="0.18996520480000001" green="0.18823529410000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="separatorColor" red="0.25882352941176467" green="0.25882352941176467" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="noteCell" rowHeight="72" id="v4j-Pq-PUT" customClass="NoteTableCell" customModule="NoteToMyself" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NoteCell" rowHeight="72" id="v4j-Pq-PUT" customClass="NoteTableCell" customModule="NoteToMyself" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="72"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="v4j-Pq-PUT" id="Ygk-ei-2yh">
@@ -81,7 +81,11 @@
                         <viewLayoutGuide key="safeArea" id="ZVi-ad-gQB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Notes" id="QOI-WJ-zbP">
-                        <barButtonItem key="rightBarButtonItem" title="Add note" id="teU-09-NJ6"/>
+                        <barButtonItem key="rightBarButtonItem" title="Add note" id="teU-09-NJ6">
+                            <connections>
+                                <action selector="buttonAdd:" destination="TVH-bV-5Pw" id="YzF-zd-V80"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="table" destination="7Vt-O6-wzz" id="sbg-qY-w9z"/>
