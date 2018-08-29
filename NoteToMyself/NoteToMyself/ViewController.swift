@@ -13,12 +13,12 @@ class ViewController: UIViewController {
     @IBOutlet var table: UITableView!
     
     let cellIdentifier : String = "NoteCell"
-    var notes : [String] = []
+    var notes : [String] = ["Poznámka", "Nákupný zoznam"]
+    var notesContent : [String] = ["Toto je text poznámky, ktorý ide do druhého riadka", "Mrkva, jablko, mlieko, cukor"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        table.register(NoteTableCell.self, forCellReuseIdentifier: cellIdentifier)
         table.delegate = self
         table.dataSource = self
         
@@ -29,13 +29,14 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func insertNote(lockOn : Any, note : String){
+    func insertNote(lockOn: Any, note: String, content: String){
         objc_sync_enter(lockOn)
         defer {
             objc_sync_exit(lockOn)
         }
         
         notes.append(note)
+        notesContent.append(content)
         
         table.beginUpdates()
         let indexPath = IndexPath(row: notes.count - 1, section: 0)
@@ -44,8 +45,9 @@ class ViewController: UIViewController {
         table.scrollToRow(at: indexPath, at: .bottom, animated: true)
         
     }
+    
     @IBAction func buttonAdd(_ sender: UIBarButtonItem) {
-        insertNote(lockOn: self, note: "henlo")
+        insertNote(lockOn: self, note: "henlo", content: "content")
         
     }
     
@@ -61,12 +63,13 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource{
     //getCell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let title = notes[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! NoteTableCell
+        let content = notesContent[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
         
-        cell.title?.text = title
-        cell.content?.text = "this is sum quality content"
+        cell!.textLabel!.text = title
+        cell!.detailTextLabel!.text = content
         
-        return cell
+        return cell!
         
     }
     
@@ -79,6 +82,7 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if(editingStyle == .delete){
             notes.remove(at: indexPath.row)
+            notesContent.remove(at: indexPath.row)
             tableView.beginUpdates()
             tableView.deleteRows(at: [indexPath], with: .automatic)
             tableView.endUpdates()
@@ -89,7 +93,7 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource{
     
     //cellSelected
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print((tableView.cellForRow(at: indexPath) as! NoteTableCell).title?.text!)
+        print(tableView.cellForRow(at: indexPath)?.textLabel?.text as Any)
     }
     
 }
